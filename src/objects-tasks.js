@@ -34,7 +34,14 @@ function shallowCopy(obj) {
  *    mergeObjects([]) => {}
  */
 function mergeObjects(objects) {
-
+  return objects.reduce((acc, obj) => {
+    Object.entries(obj).forEach(([key, value]) => {
+      acc[key] = Object.prototype.hasOwnProperty.call(acc, key)
+        ? acc[key] + value
+        : value;
+    });
+    return acc;
+  }, {});
 }
 
 /**
